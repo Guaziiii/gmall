@@ -1,28 +1,20 @@
 package com.atguigu.gmall.controller;
 
 import com.atguigu.common.result.Result;
-import com.atguigu.gmall.model.product.BaseCategory1;
-import com.atguigu.gmall.model.product.BaseCategory2;
-import com.atguigu.gmall.model.product.BaseCategory3;
-import com.atguigu.gmall.service.BaseCategory1Service;
-import com.atguigu.gmall.service.BaseCategory2Service;
-import com.atguigu.gmall.service.BaseCategory3Service;
+import com.atguigu.gmall.model.product.*;
+import com.atguigu.gmall.service.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import common.config.Knife4jConfiguration;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Api(tags = "查询分类")
 @RestController
-@Import(Knife4jConfiguration.class)
 @RequestMapping("/admin/product")
 public class CategoryController {
 
@@ -34,6 +26,12 @@ public class CategoryController {
 
     @Autowired
     private BaseCategory3Service baseCategory3Service;
+
+    @Autowired
+    private BaseAttrInfoService baseAttrInfoService;
+
+    @Autowired
+    private BaseAttrValueService baseAttrValueService;
 
     @ApiOperation(value = "获取一级分类")
     @GetMapping("/getCategory1")
@@ -55,6 +53,36 @@ public class CategoryController {
         List<BaseCategory3> list = baseCategory3Service.list(new LambdaQueryWrapper<BaseCategory3>().eq(BaseCategory3::getCategory2Id, id));
         return Result.ok(list);
     }
+
+    @ApiOperation(value = "根据三级分类获取具体属性")
+    @GetMapping("/attrInfoList/{c1id}/{c2id}/{c3id}")
+    public Result getAttrValueByCategoryLevel(@PathVariable("c1id") Long c1id,
+                                              @PathVariable("c2id")Long c2id,
+                                              @PathVariable("c3id")Long c3id){
+        List<BaseAttrInfo> list = baseAttrInfoService.getAttrValueByCategoryLevel(c1id,c2id,c3id);
+        return Result.ok(list);
+    }
+
+    @ApiOperation(value = "添加商品属性")
+    @PostMapping("/saveAttrInfo")
+    public Result saveAttrInfo(@RequestBody BaseAttrInfo baseAttrInfo){
+        if (baseAttrInfo.getId()!=null){
+            //修改
+            baseAttrInfoService.updateAttrInfoAndValue(baseAttrInfo);
+        }else{
+            baseAttrInfoService.saveAttrInfo(baseAttrInfo);
+        }
+        return Result.ok();
+    }
+
+    @ApiOperation(value = "查询商品属性")
+    @GetMapping("/getAttrValueList/{attrId}")
+    public Result getAttrValueList(@PathVariable("attrId") String attrId){
+        LambdaQueryWrapper<BaseAttrValue> eq = new LambdaQueryWrapper<BaseAttrValue>().eq(BaseAttrValue::getAttrId, attrId);
+        List<BaseAttrValue> list = baseAttrValueService.list(eq);
+        return Result.ok(list);
+    }
+
 
 
 

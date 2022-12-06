@@ -34,6 +34,12 @@
             <version>1.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>7.0.2</version>
+        </dependency>
+
         <!--web 需要启动项目-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

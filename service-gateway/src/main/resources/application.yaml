@@ -9,6 +9,8 @@ spring:
           '[/**]':
             allowedOrigins: "*"
             allowedMethods: "*"
+            allowedHeaders: "*"    #允许任意请求头跨域
+            allowCredentials: true     #任何cookie
       routes:
         - id: product_route
           uri: lb://service-product
