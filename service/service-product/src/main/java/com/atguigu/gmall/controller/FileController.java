@@ -5,6 +5,7 @@ import com.atguigu.gmall.config.minio.MinioConfiguration;
 import com.atguigu.gmall.config.minio.MinioProperties;
 import io.minio.MinioClient;
 import io.minio.PutObjectOptions;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.support.HttpRequestHandlerServlet;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.UUID;
 
 @RestController
+@Api(tags = "文件上传")
 @RequestMapping("/admin/product")
 public class FileController {
 
@@ -26,7 +29,7 @@ public class FileController {
     MinioClient minioClient;
 
     @PostMapping("/fileUpload")
-    public Result fileUpload(HttpRequestHandlerServlet
+    public Result fileUpload(@ApiIgnore HttpRequestHandlerServlet
                                  request,@RequestPart("file") MultipartFile file) throws Exception{
         String name = UUID.randomUUID().toString().replace("-", "") + "_" + file.getOriginalFilename();
         PutObjectOptions options = new PutObjectOptions(file.getSize(),-1);

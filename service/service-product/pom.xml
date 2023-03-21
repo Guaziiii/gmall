@@ -11,6 +11,24 @@
 
     <packaging>jar</packaging>
     <name>service-product</name>
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atguigu.gmall</groupId>
+            <artifactId>mall-feign-client</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
     <artifactId>service-product</artifactId>
 
     <properties>

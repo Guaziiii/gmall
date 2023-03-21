@@ -2,7 +2,11 @@ package com.atguigu.gmall.mapper;
 
 
 import com.atguigu.gmall.model.product.BaseCategory1;
+import com.atguigu.gmall.model.vo.CategoryVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.ui.Model;
+
+import java.util.List;
 
 /**
 * @author guazi
@@ -12,6 +16,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface BaseCategory1Mapper extends BaseMapper<BaseCategory1> {
 
+    List<CategoryVo> categoryAll();
 }
 
 

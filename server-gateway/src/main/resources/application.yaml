@@ -1,0 +1,23 @@
+server:
+  port: 80
+
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"    #允许任意请求头跨域
+            allowCredentials: true     #任何cookie
+      routes:
+        - id: product_route
+          uri: lb://service-product
+          predicates:
+            - Path=/admin/product/**
+
+        - id: web_front
+          uri: lb://web-front
+          predicates:
+            - Host=**.gmall.com
