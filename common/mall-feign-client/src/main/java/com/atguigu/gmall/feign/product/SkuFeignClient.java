@@ -26,4 +26,7 @@ public interface SkuFeignClient {
     Result<List<SpuSaleAttr>> spuSaleAttr(@PathVariable("spuId") Long spuId,
                                                  @PathVariable("skuId") Long skuId);
 
+    @GetMapping("/getItemJson/{spuId}")
+    Result<String> getItemJson(@PathVariable("spuId") Long spuId);
+
 }

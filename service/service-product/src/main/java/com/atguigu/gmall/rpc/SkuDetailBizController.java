@@ -62,5 +62,11 @@ public class SkuDetailBizController {
         return Result.ok(list);
     }
 
+    @GetMapping("/getItemJson/{spuId}")
+    public Result<String> getItemJson(@PathVariable("spuId") Long spuId){
+        Result<String> result =  skuSaleAttrValueService.getItemJson(spuId);
+        return result;
+    }
+
 
 }

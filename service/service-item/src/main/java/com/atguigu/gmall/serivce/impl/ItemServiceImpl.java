@@ -43,6 +43,8 @@ public class ItemServiceImpl implements ItemService {
         skuDetailVo.setSpuSaleAttrList(list);
 
         //设置json
+        Result<String> json = skuFeignClient.getItemJson(data.getSpuId());
+        skuDetailVo.setValuesSkuJson(json.getData());
 
         return skuDetailVo;
     }
